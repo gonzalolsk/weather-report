@@ -118,7 +118,7 @@ function ShowWeather() {
                                         <p>Cloud Cover: {weatherData.current.cloud_cover}%</p>
                                     </div>
                                 </div>
-                                <button className="btn-sm" onClick={() => fetchWeather(city)}>{buttonText}</button>
+                                <button className="btn-sm" onClick={() => fetchWeather(city)} disabled={loading} >{buttonText}</button>
                             </div>
                     </div>
                 ) : (
