@@ -22,11 +22,11 @@ interface WeatherData {
 }
 
 function ShowWeather() {
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState<string>('');
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [weatherError, setWeatherError] = useState<string | null>(null);
-    const [buttonText, setButtonText] = useState('Update Weather');
-    const [loading, setLoading] = useState(false);
+    const [buttonText, setButtonText] = useState<string>('Update Weather');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetchWeather = async (city: string) => {
         try {
