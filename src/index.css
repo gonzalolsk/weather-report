@@ -59,6 +59,12 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.txt-blue{
+  color: #00b7ff;
+}
+.txt-pink{
+  color: #ff30ff;
+}
 .card {
   width: 320px;
   height: 380px;

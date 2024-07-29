@@ -70,7 +70,7 @@ function ShowWeather() {
 
     return (
         <section>
-            <h1>S1 Weather Report</h1>
+            <h1> <span className="txt-blue">Weather</span> <span className="txt-pink">Report</span></h1>
             <article>
                 <select name="cities" id="cities" onChange={(e) => setCity(e.target.value)}>
                     <option value="0">Select City</option>
