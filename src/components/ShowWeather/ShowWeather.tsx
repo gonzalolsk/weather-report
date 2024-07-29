@@ -26,9 +26,11 @@ function ShowWeather() {
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [weatherError, setWeatherError] = useState<string | null>(null);
     const [buttonText, setButtonText] = useState('Update Weather');
+    const [loading, setLoading] = useState(false);
 
     const fetchWeather = async (city: string) => {
         try {
+            setLoading(true);
             const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
             const url = `https://www.meteosource.com/api/v1/free/point?place_id=${city}&key=${apiKey}`;
             const response = await fetch(url);
@@ -54,7 +56,10 @@ function ShowWeather() {
             console.error('Failed to fetch weather data:', error);
             setWeatherData(null);
             setWeatherError('Please try again');
+        } finally {
+            setLoading(false);
         }
+
     };
 
     useEffect(() => {
@@ -70,6 +75,7 @@ function ShowWeather() {
                 <select name="cities" id="cities" onChange={(e) => setCity(e.target.value)}>
                     <option value="0">Select City</option>
                     <option value="buenos-aires">Buenos Aires</option>
+                    <option value="city-bell-3435379">City Bell</option>
                     <option value="cordoba">Córdoba</option>
                     <option value="bogota">Bogotá</option>
                     <option value="ushuaia">Ushuaia</option>
@@ -78,11 +84,15 @@ function ShowWeather() {
                     <option value="los-angeles">Los Angeles</option>
                 </select>
             </article>
-                        {weatherError ? (
-                            <p>Error: {weatherError}</p>
-                        ) : weatherData ? (
             <article className="card">
                 <div className="show-weather">
+                        {
+                        loading ? (
+                            <div className='spinner'></div>
+                        ) :
+                        weatherError ? (
+                            <p>Error: {weatherError}</p>
+                        ) : weatherData ? (
                     <div className="weather">
                             <div>
                                 {weatherData && <Clock timezone={weatherData.timezone} />}
@@ -111,11 +121,11 @@ function ShowWeather() {
                                 <button className="btn-sm" onClick={() => fetchWeather(city)}>{buttonText}</button>
                             </div>
                     </div>
+                ) : (
+                    <p>Please select a city.</p>
+                )}
                 </div>
             </article>
-                        ) : (
-                            <p>Please select a city.</p>
-                        )}
         </section>
     );
 }
